@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd"> -->
+
+<!-- <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        <context:annotation-config/>
+        <context:component-scan base-package="com.cs.ganesh" />
+        
+        
+ </beans> -->
+ 
+ <beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+  xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+    http://www.directwebremoting.org/schema/spring-dwr
+    http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.cs.ganesh" />
+    
+    <bean id= "dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"></property>
+    	<property name="url" value="jdbc:derby://localhost:1527/db;create=true"></property>
+    	<property name="initialSize" value="2"></property>
+    	<property name="maxActive" value="5"></property>
+    </bean>
+    
+    
+    <bean id = "simpleJdbcDaoImpl" class = "com.cs.ganesh.dao.SimpleJdbcDaoImpl">
+    	<property name="dataSource" ref = "dataSource"></property>
+    </bean>
+    
+    <bean id = "sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"></property>
+    	<property name="packagesToScan" value="com.cs.ganesh.model"></property>
+    	
+    	<property name="hibernateProperties">
+    		<props>
+    			<prop key="dialect">org.hibernate.dialect.DerbyDialect</prop>
+    		</props>
+    	</property>
+    </bean>
+    
+
+</beans>
